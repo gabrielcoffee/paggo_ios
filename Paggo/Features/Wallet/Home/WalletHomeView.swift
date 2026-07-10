@@ -42,6 +42,7 @@ struct WalletHomeView: View {
                 .task {
                     await wallet.load()
                     await budgets.load()
+                    await cardStore.load()
                     // Debug: PAGGO_WALLET_PAY=pixKey|pixCopyPaste|pixQR|boleto abre direto o fluxo.
                     if payLaunch == nil,
                        let raw = ProcessInfo.processInfo.environment["PAGGO_WALLET_PAY"],
@@ -68,6 +69,9 @@ struct WalletHomeView: View {
                     }
                     if !isCardsExpanded {
                         actionGrid
+                            .padding(.horizontal, Spacing.lg)
+                            .transition(.opacity)
+                        cardRow
                             .padding(.horizontal, Spacing.lg)
                             .transition(.opacity)
                         budgetsSection
@@ -248,6 +252,38 @@ struct WalletHomeView: View {
             .background(Theme.surfaceHigh, in: RoundedRectangle(cornerRadius: 18, style: .continuous))
         }
         .buttonStyle(.plain)
+    }
+
+    // MARK: Cartão corporativo (linha cheia — estado à vista, toque abre a tela)
+
+    @Environment(CardStore.self) private var cardStore
+
+    @ViewBuilder private var cardRow: some View {
+        if let card = cardStore.card {
+            NavigationLink {
+                CardScreenView()
+            } label: {
+                HStack(spacing: Spacing.md) {
+                    TintedIcon(symbol: "creditcard.fill",
+                               tint: card.status == .active ? Theme.accent : Theme.warning)
+                    VStack(alignment: .leading, spacing: 2) {
+                        Text("Cartão •••• \(card.last4)")
+                            .font(.brand(.subheadline, weight: .semibold))
+                            .foregroundStyle(Theme.textPrimary)
+                        Text(card.status == .active ? card.budget.name : card.statusLabel)
+                            .font(.brand(.caption))
+                            .foregroundStyle(card.status == .active ? Theme.textSecondary : Theme.warning)
+                    }
+                    Spacer()
+                    Image(systemName: "chevron.right")
+                        .font(.system(size: 12, weight: .semibold))
+                        .foregroundStyle(Theme.textTertiary)
+                }
+                .padding(Spacing.lg)
+                .cardSurface()
+            }
+            .buttonStyle(.plain)
+        }
     }
 
     // MARK: Meus orçamentos (faixa com barras 75/90; toque abre o detalhe)
