@@ -40,7 +40,7 @@ struct CardScreenView: View {
         .refreshable { await cardStore.load(force: true) }
         .onDisappear { hideRevealed() }
         .sheet(item: $correctingTransaction) { tx in
-            CategoryCorrectionSheet(transaction: tx)
+            CardCategorySheet(transaction: tx)
         }
     }
 
@@ -304,44 +304,5 @@ struct CardScreenView: View {
         .frame(maxWidth: .infinity)
         .padding(.vertical, Spacing.xxxl)
         .cardSurface()
-    }
-}
-
-/// Correção manual da categoria vinda da rede (doc 02 regra 6) — alimenta o policy engine.
-private struct CategoryCorrectionSheet: View {
-    let transaction: CardTransaction
-    @Environment(CardStore.self) private var cardStore
-    @Environment(\.dismiss) private var dismiss
-
-    var body: some View {
-        NavigationStack {
-            List(MerchantCategory.allCases) { category in
-                Button {
-                    Task {
-                        await cardStore.correctCategory(transactionId: transaction.id,
-                                                        category: category)
-                        dismiss()
-                    }
-                } label: {
-                    HStack {
-                        Label(category.label, systemImage: category.symbol)
-                            .foregroundStyle(Theme.textPrimary)
-                        Spacer()
-                        if category == transaction.merchant.category {
-                            Image(systemName: "checkmark")
-                                .foregroundStyle(Theme.accent)
-                        }
-                    }
-                }
-            }
-            .navigationTitle("Categoria da compra")
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarItem(placement: .cancellationAction) {
-                    Button("Fechar") { dismiss() }
-                }
-            }
-        }
-        .presentationDetents([.medium, .large])
     }
 }
