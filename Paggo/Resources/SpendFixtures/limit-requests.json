@@ -1,0 +1,24 @@
+[
+  {
+    "id": "lir-1",
+    "membershipId": "bm-1",
+    "budgetId": "bgt-1",
+    "requestedBy": {
+      "id": "user-1",
+      "name": "Igor Souza"
+    },
+    "currentLimit": 600000,
+    "requestedLimit": 800000,
+    "kind": "permanent",
+    "validUntil": null,
+    "reason": "Campanha de lançamento do trimestre",
+    "status": "approved",
+    "decidedBy": {
+      "id": "user-adm-1",
+      "name": "Ana Lima"
+    },
+    "decidedAt": "2026-06-28T14:05:00Z",
+    "decisionNote": null,
+    "createdAt": "2026-06-27T10:00:00Z"
+  }
+]

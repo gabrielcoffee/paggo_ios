@@ -1,0 +1,40 @@
+[
+  {
+    "id": "pol-1",
+    "scope": {
+      "type": "global",
+      "budgetId": null
+    },
+    "blockedCategories": [
+      "software"
+    ],
+    "maxPerTransaction": 200000,
+    "receiptRequiredAbove": 5000,
+    "autoApproveBelow": 10000,
+    "enabled": true,
+    "updatedBy": {
+      "id": "user-adm-1",
+      "name": "Ana Lima"
+    },
+    "createdAt": "2026-07-01T00:00:00Z",
+    "updatedAt": "2026-07-01T00:00:00Z"
+  },
+  {
+    "id": "pol-2",
+    "scope": {
+      "type": "budget",
+      "budgetId": "bgt-2"
+    },
+    "blockedCategories": null,
+    "maxPerTransaction": 800000,
+    "receiptRequiredAbove": null,
+    "autoApproveBelow": null,
+    "enabled": true,
+    "updatedBy": {
+      "id": "user-adm-1",
+      "name": "Ana Lima"
+    },
+    "createdAt": "2026-06-20T12:00:00Z",
+    "updatedAt": "2026-06-20T12:00:00Z"
+  }
+]

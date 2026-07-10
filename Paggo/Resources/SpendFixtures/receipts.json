@@ -1,0 +1,50 @@
+[
+  {
+    "id": "rcp-1",
+    "uploadedBy": {
+      "id": "user-1",
+      "name": "Igor Souza"
+    },
+    "url": "storage://receipts/rcp-1.jpg",
+    "ocr": {
+      "merchantName": "Posto Shell Marginal",
+      "date": "2026-07-07",
+      "amount": 16500,
+      "confidence": {
+        "merchantName": 0.94,
+        "date": 0.99,
+        "amount": 0.97
+      }
+    },
+    "match": {
+      "type": "cardTransaction",
+      "id": "ctx-2",
+      "method": "auto"
+    },
+    "status": "matched",
+    "createdAt": "2026-07-08T17:00:00Z",
+    "updatedAt": "2026-07-08T17:00:10Z"
+  },
+  {
+    "id": "rcp-2",
+    "uploadedBy": {
+      "id": "user-1",
+      "name": "Igor Souza"
+    },
+    "url": "storage://receipts/rcp-2.jpg",
+    "ocr": {
+      "merchantName": "Padaria Estrela",
+      "date": "2026-07-09",
+      "amount": 3450,
+      "confidence": {
+        "merchantName": 0.88,
+        "date": 0.95,
+        "amount": 0.9
+      }
+    },
+    "match": null,
+    "status": "unmatched",
+    "createdAt": "2026-07-09T08:00:00Z",
+    "updatedAt": "2026-07-09T08:00:05Z"
+  }
+]

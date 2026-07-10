@@ -1,0 +1,32 @@
+[
+  {
+    "id": "bm-1",
+    "budgetId": "bgt-1",
+    "employee": {
+      "id": "user-1",
+      "name": "Igor Souza",
+      "email": "igor@paggo.ai"
+    },
+    "memberLimit": 800000,
+    "temporaryLimit": null,
+    "consumed": 612000,
+    "status": "active",
+    "createdAt": "2026-06-20T12:00:00Z",
+    "updatedAt": "2026-07-10T09:00:00Z"
+  },
+  {
+    "id": "bm-2",
+    "budgetId": "bgt-2",
+    "employee": {
+      "id": "user-1",
+      "name": "Igor Souza",
+      "email": "igor@paggo.ai"
+    },
+    "memberLimit": null,
+    "temporaryLimit": null,
+    "consumed": 210000,
+    "status": "active",
+    "createdAt": "2026-06-20T12:00:00Z",
+    "updatedAt": "2026-07-08T16:00:00Z"
+  }
+]

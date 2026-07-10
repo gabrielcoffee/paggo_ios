@@ -6,21 +6,26 @@ import Observation
 @MainActor
 @Observable
 final class WalletTabRouter {
-    enum WalletTab: String { case inicio, pagar, transacoes }
+    enum WalletTab: String { case inicio, extrato, avisos, perfil }
     var selection: WalletTab = .inicio
 }
 
-/// Raiz do modo Carteira Digital — tab bar Liquid Glass com Início / Pagar / Transações.
-/// Espelha a bottom navigation do apps/wallet-pwa.
+/// Raiz do modo Carteira — tab bar Liquid Glass com Início / Extrato / Avisos / Perfil.
+/// Abas são lugares; ações (Pagar, Reembolso…) são fluxos abertos pelo hub do Início.
 struct WalletRootView: View {
     @Environment(WalletStore.self) private var wallet
+    @Environment(NoticeStore.self) private var notices
 
     @State private var router: WalletTabRouter = {
         let router = WalletTabRouter()
-        // Debug: PAGGO_WALLET_TAB=inicio|pagar|transacoes abre direto numa aba (verificação de UI).
-        if let raw = ProcessInfo.processInfo.environment["PAGGO_WALLET_TAB"],
-           let tab = WalletTabRouter.WalletTab(rawValue: raw) {
-            router.selection = tab
+        // Debug: PAGGO_WALLET_TAB=inicio|extrato|avisos|perfil abre direto numa aba
+        // ("transacoes" legado ainda aceito).
+        if let raw = ProcessInfo.processInfo.environment["PAGGO_WALLET_TAB"] {
+            if let tab = WalletTabRouter.WalletTab(rawValue: raw) {
+                router.selection = tab
+            } else if raw == "transacoes" {
+                router.selection = .extrato
+            }
         }
         return router
     }()
@@ -31,16 +36,23 @@ struct WalletRootView: View {
             Tab("Início", systemImage: "house.fill", value: WalletTabRouter.WalletTab.inicio) {
                 WalletHomeView()
             }
-            Tab("Pagar", systemImage: "dollarsign.circle.fill", value: WalletTabRouter.WalletTab.pagar) {
-                WalletPaymentMenuView()
-            }
             Tab("Extrato", systemImage: "list.bullet.rectangle.portrait",
-                value: WalletTabRouter.WalletTab.transacoes) {
+                value: WalletTabRouter.WalletTab.extrato) {
                 WalletTransactionsView()
+            }
+            Tab("Avisos", systemImage: "bell.fill", value: WalletTabRouter.WalletTab.avisos) {
+                NoticesView()
+            }
+            .badge(notices.unreadCount)
+            Tab("Perfil", systemImage: "person.crop.circle", value: WalletTabRouter.WalletTab.perfil) {
+                WalletProfileView()
             }
         }
         .tabBarMinimizeBehavior(.onScrollDown)
-        .task { await wallet.load() }
+        .task {
+            await wallet.load()
+            await notices.load()
+        }
         .environment(router)
     }
 }

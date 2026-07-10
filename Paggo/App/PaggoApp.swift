@@ -47,6 +47,11 @@ struct PaggoApp: App {
     @State private var bankStore = BankStore()
     @State private var purchaseRequestsStore = PurchaseRequestsStore()
     @State private var walletStore = WalletStore()
+    @State private var budgetStore = BudgetStore()
+    @State private var cardStore = CardStore()
+    @State private var reimbursementStore = ReimbursementStore()
+    @State private var noticeStore = NoticeStore()
+    @State private var chatStore = ChatStore()
 
     var body: some Scene {
         WindowGroup {
@@ -61,6 +66,11 @@ struct PaggoApp: App {
                 .environment(bankStore)
                 .environment(purchaseRequestsStore)
                 .environment(walletStore)
+                .environment(budgetStore)
+                .environment(cardStore)
+                .environment(reimbursementStore)
+                .environment(noticeStore)
+                .environment(chatStore)
                 .onOpenURL { url in
                     // Callback do OAuth genérico do Firebase (Microsoft) tem prioridade;
                     // o que sobrar segue para o Google Sign-In.

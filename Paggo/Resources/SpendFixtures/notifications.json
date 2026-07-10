@@ -1,0 +1,76 @@
+[
+  {
+    "id": "ntf-1",
+    "recipient": {
+      "id": "user-1"
+    },
+    "type": "budget_threshold",
+    "payload": {
+      "budgetId": "bgt-1",
+      "membershipId": "bm-1",
+      "threshold": 75
+    },
+    "title": "Orçamento Marketing em 75%",
+    "body": "Você usou R$ 6.120,00 de R$ 8.000,00 do seu limite neste período.",
+    "readAt": null,
+    "createdAt": "2026-07-10T08:00:00Z"
+  },
+  {
+    "id": "ntf-2",
+    "recipient": {
+      "id": "user-1"
+    },
+    "type": "card_declined",
+    "payload": {
+      "cardId": "crd-1",
+      "transactionId": "ctx-3"
+    },
+    "title": "Compra recusada no cartão",
+    "body": "Restaurante Fasano — R$ 2.500,00 recusada: limite do orçamento excedido.",
+    "readAt": null,
+    "createdAt": "2026-07-06T20:41:00Z"
+  },
+  {
+    "id": "ntf-3",
+    "recipient": {
+      "id": "user-1"
+    },
+    "type": "receipt_pending",
+    "payload": {
+      "transactionId": "ctx-4"
+    },
+    "title": "Recibo pendente",
+    "body": "A compra iFood de R$ 89,90 está sem recibo há 4 dias.",
+    "readAt": null,
+    "createdAt": "2026-07-09T09:00:00Z"
+  },
+  {
+    "id": "ntf-4",
+    "recipient": {
+      "id": "user-1"
+    },
+    "type": "limit_request_decided",
+    "payload": {
+      "requestId": "lir-1",
+      "budgetId": "bgt-1"
+    },
+    "title": "Pedido de aumento aprovado",
+    "body": "Seu limite em Marketing agora é R$ 8.000,00.",
+    "readAt": "2026-06-28T15:00:00Z",
+    "createdAt": "2026-06-28T14:06:00Z"
+  },
+  {
+    "id": "ntf-5",
+    "recipient": {
+      "id": "user-1"
+    },
+    "type": "reimbursement_paid",
+    "payload": {
+      "reimbursementId": "rmb-1"
+    },
+    "title": "Reembolso pago",
+    "body": "R$ 123,50 caíram na sua chave Pix.",
+    "readAt": "2026-07-03T13:00:00Z",
+    "createdAt": "2026-07-03T12:00:00Z"
+  }
+]

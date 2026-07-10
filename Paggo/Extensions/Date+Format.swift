@@ -44,6 +44,14 @@ enum DateText {
         formatted(iso, "dd MMM").replacingOccurrences(of: ".", with: "")
     }
 
+    /// Today as a plain ISO date (`yyyy-MM-dd`) — spend rules compare ISO dates lexicographically.
+    static var todayISO: String {
+        let f = DateFormatter()
+        f.locale = Locale(identifier: "en_US_POSIX")
+        f.dateFormat = "yyyy-MM-dd"
+        return f.string(from: Date())
+    }
+
     /// Relative, localized, e.g. `há 2 dias`.
     static func relative(_ iso: String) -> String {
         guard let date = parse(iso) else { return "—" }

@@ -475,9 +475,9 @@ struct WalletPaymentResultView: View {
         }
     }
 
-    /// Fecha o fluxo e pula para a aba Transações (quando o router existir no environment).
+    /// Fecha o fluxo e pula para a aba Extrato (quando o router existir no environment).
     private func goToTransactions() {
-        router?.selection = .transacoes
+        router?.selection = .extrato
         onDone()
     }
 

@@ -1,0 +1,27 @@
+[
+  {
+    "id": "crd-1",
+    "membershipId": "bm-1",
+    "budget": {
+      "id": "bgt-1",
+      "name": "Marketing"
+    },
+    "wallet": {
+      "id": "wal-1",
+      "name": "Cartão Obra Centro"
+    },
+    "holder": {
+      "id": "user-1",
+      "name": "Igor Souza"
+    },
+    "type": "virtual",
+    "brand": "visa",
+    "last4": "4821",
+    "expMonth": 7,
+    "expYear": 2029,
+    "status": "active",
+    "lockedBy": null,
+    "createdAt": "2026-06-21T15:00:00Z",
+    "updatedAt": "2026-06-21T15:00:00Z"
+  }
+]

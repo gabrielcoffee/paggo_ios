@@ -1,0 +1,176 @@
+[
+  {
+    "id": "ctx-1",
+    "cardId": "crd-1",
+    "membershipId": "bm-1",
+    "budget": {
+      "id": "bgt-1",
+      "name": "Marketing"
+    },
+    "holder": {
+      "id": "user-1",
+      "name": "Igor Souza"
+    },
+    "merchant": {
+      "name": "Uber *Trip",
+      "category": "transport",
+      "city": "São Paulo",
+      "country": "BR"
+    },
+    "amount": 4890,
+    "settledAmount": null,
+    "currency": "BRL",
+    "status": "authorized",
+    "declineReason": null,
+    "authorizedAt": "2026-07-10T13:12:00Z",
+    "settledAt": null,
+    "receiptStatus": "missing",
+    "createdAt": "2026-07-10T13:12:00Z",
+    "updatedAt": "2026-07-10T13:12:00Z"
+  },
+  {
+    "id": "ctx-2",
+    "cardId": "crd-1",
+    "membershipId": "bm-1",
+    "budget": {
+      "id": "bgt-1",
+      "name": "Marketing"
+    },
+    "holder": {
+      "id": "user-1",
+      "name": "Igor Souza"
+    },
+    "merchant": {
+      "name": "Posto Shell Marginal",
+      "category": "fuel",
+      "city": "São Paulo",
+      "country": "BR"
+    },
+    "amount": 15000,
+    "settledAmount": 16500,
+    "currency": "BRL",
+    "status": "settled",
+    "declineReason": null,
+    "authorizedAt": "2026-07-07T09:30:00Z",
+    "settledAt": "2026-07-08T11:00:00Z",
+    "receiptStatus": "attached",
+    "createdAt": "2026-07-07T09:30:00Z",
+    "updatedAt": "2026-07-08T11:00:00Z"
+  },
+  {
+    "id": "ctx-3",
+    "cardId": "crd-1",
+    "membershipId": "bm-1",
+    "budget": {
+      "id": "bgt-1",
+      "name": "Marketing"
+    },
+    "holder": {
+      "id": "user-1",
+      "name": "Igor Souza"
+    },
+    "merchant": {
+      "name": "Restaurante Fasano",
+      "category": "food",
+      "city": "São Paulo",
+      "country": "BR"
+    },
+    "amount": 250000,
+    "settledAmount": null,
+    "currency": "BRL",
+    "status": "declined",
+    "declineReason": "limit_exceeded",
+    "authorizedAt": "2026-07-06T20:40:00Z",
+    "settledAt": null,
+    "receiptStatus": "missing",
+    "createdAt": "2026-07-06T20:40:00Z",
+    "updatedAt": "2026-07-06T20:40:00Z"
+  },
+  {
+    "id": "ctx-4",
+    "cardId": "crd-1",
+    "membershipId": "bm-1",
+    "budget": {
+      "id": "bgt-1",
+      "name": "Marketing"
+    },
+    "holder": {
+      "id": "user-1",
+      "name": "Igor Souza"
+    },
+    "merchant": {
+      "name": "iFood",
+      "category": "food",
+      "city": "São Paulo",
+      "country": "BR"
+    },
+    "amount": 8990,
+    "settledAmount": 8990,
+    "currency": "BRL",
+    "status": "settled",
+    "declineReason": null,
+    "authorizedAt": "2026-07-05T12:20:00Z",
+    "settledAt": "2026-07-06T10:00:00Z",
+    "receiptStatus": "missing",
+    "createdAt": "2026-07-05T12:20:00Z",
+    "updatedAt": "2026-07-06T10:00:00Z"
+  },
+  {
+    "id": "ctx-5",
+    "cardId": "crd-1",
+    "membershipId": "bm-1",
+    "budget": {
+      "id": "bgt-1",
+      "name": "Marketing"
+    },
+    "holder": {
+      "id": "user-1",
+      "name": "Igor Souza"
+    },
+    "merchant": {
+      "name": "Livraria Cultura",
+      "category": "materials",
+      "city": "São Paulo",
+      "country": "BR"
+    },
+    "amount": 12000,
+    "settledAmount": null,
+    "currency": "BRL",
+    "status": "reversed",
+    "declineReason": null,
+    "authorizedAt": "2026-07-03T15:00:00Z",
+    "settledAt": null,
+    "receiptStatus": "missing",
+    "createdAt": "2026-07-03T15:00:00Z",
+    "updatedAt": "2026-07-03T15:00:00Z"
+  },
+  {
+    "id": "ctx-6",
+    "cardId": "crd-1",
+    "membershipId": "bm-1",
+    "budget": {
+      "id": "bgt-1",
+      "name": "Marketing"
+    },
+    "holder": {
+      "id": "user-1",
+      "name": "Igor Souza"
+    },
+    "merchant": {
+      "name": "Adobe Creative Cloud",
+      "category": "software",
+      "city": "São Paulo",
+      "country": "BR"
+    },
+    "amount": 9900,
+    "settledAmount": null,
+    "currency": "BRL",
+    "status": "declined",
+    "declineReason": "category_blocked",
+    "authorizedAt": "2026-07-02T08:00:00Z",
+    "settledAt": null,
+    "receiptStatus": "missing",
+    "createdAt": "2026-07-02T08:00:00Z",
+    "updatedAt": "2026-07-02T08:00:00Z"
+  }
+]

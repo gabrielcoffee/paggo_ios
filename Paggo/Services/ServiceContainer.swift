@@ -16,6 +16,14 @@ final class ServiceContainer: Sendable {
     /// rotas de wallet existirem na mobile-api, trocar por `LiveWalletRepository` conforme `isLive`.
     let walletRepository: WalletRepository
 
+    // Spend management (specs 01–06): mock hoje (SpendMockServer), Supabase na fase live.
+    let budgetRepository: BudgetRepository
+    let cardRepository: CardRepository
+    let reimbursementRepository: ReimbursementRepository
+    let policyRepository: PolicyRepository
+    let spendNotificationRepository: SpendNotificationRepository
+    let chatRepository: ChatRepository
+
     private init(config: AppConfig = .current) {
         self.config = config
         let store = KeychainTokenStore()
@@ -25,6 +33,12 @@ final class ServiceContainer: Sendable {
         self.paymentDetailsAPI = PaymentDetailsAPI(client: apiClient)
         self.authAPI = AuthAPI(client: apiClient, authBaseURL: config.authBaseURL)
         self.walletRepository = MockWalletRepository()
+        self.budgetRepository = MockBudgetRepository()
+        self.cardRepository = MockCardRepository()
+        self.reimbursementRepository = MockReimbursementRepository()
+        self.policyRepository = MockPolicyRepository()
+        self.spendNotificationRepository = MockSpendNotificationRepository()
+        self.chatRepository = MockChatRepository()
     }
 
     var isLive: Bool { config.dataSource == .live }

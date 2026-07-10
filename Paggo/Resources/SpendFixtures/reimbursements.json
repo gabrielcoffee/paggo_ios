@@ -1,0 +1,146 @@
+[
+  {
+    "id": "rmb-1",
+    "requester": {
+      "id": "user-1",
+      "name": "Igor Souza"
+    },
+    "budget": {
+      "id": "bgt-1",
+      "name": "Marketing"
+    },
+    "packageId": "pkg-1001",
+    "merchantCategory": "food",
+    "description": "Almoço com cliente",
+    "amount": 12350,
+    "currency": "BRL",
+    "expenseDate": "2026-06-29",
+    "receipt": {
+      "status": "attached",
+      "url": "storage://receipts/rmb-1.jpg"
+    },
+    "status": "paid",
+    "policyFlags": null,
+    "estimatedPaymentDate": "2026-07-03",
+    "paidAt": "2026-07-03T12:00:00Z",
+    "payoutKey": {
+      "type": "cpf",
+      "value": "113.036.437-23"
+    },
+    "decidedBy": {
+      "id": "user-adm-1",
+      "name": "Ana Lima"
+    },
+    "decidedAt": "2026-07-01T10:00:00Z",
+    "decisionNote": null,
+    "createdAt": "2026-06-30T16:00:00Z",
+    "updatedAt": "2026-07-03T12:00:00Z"
+  },
+  {
+    "id": "rmb-2",
+    "requester": {
+      "id": "user-1",
+      "name": "Igor Souza"
+    },
+    "budget": null,
+    "packageId": "pkg-1002",
+    "merchantCategory": "transport",
+    "description": "Táxi pro aeroporto",
+    "amount": 4500,
+    "currency": "BRL",
+    "expenseDate": "2026-07-08",
+    "receipt": {
+      "status": "attached",
+      "url": "storage://receipts/rmb-2.jpg"
+    },
+    "status": "approved",
+    "policyFlags": null,
+    "estimatedPaymentDate": "2026-07-11",
+    "paidAt": null,
+    "payoutKey": {
+      "type": "cpf",
+      "value": "113.036.437-23"
+    },
+    "decidedBy": {
+      "id": "user-adm-1",
+      "name": "Ana Lima"
+    },
+    "decidedAt": "2026-07-09T09:00:00Z",
+    "decisionNote": null,
+    "createdAt": "2026-07-09T08:30:00Z",
+    "updatedAt": "2026-07-09T09:00:00Z"
+  },
+  {
+    "id": "rmb-3",
+    "requester": {
+      "id": "user-1",
+      "name": "Igor Souza"
+    },
+    "budget": {
+      "id": "bgt-2",
+      "name": "Eventos"
+    },
+    "packageId": null,
+    "merchantCategory": "materials",
+    "description": "Material do estande",
+    "amount": 30000,
+    "currency": "BRL",
+    "expenseDate": "2026-07-09",
+    "receipt": {
+      "status": "attached",
+      "url": "storage://receipts/rmb-3.jpg"
+    },
+    "status": "submitted",
+    "policyFlags": null,
+    "estimatedPaymentDate": null,
+    "paidAt": null,
+    "payoutKey": {
+      "type": "cpf",
+      "value": "113.036.437-23"
+    },
+    "decidedBy": null,
+    "decidedAt": null,
+    "decisionNote": null,
+    "createdAt": "2026-07-10T09:00:00Z",
+    "updatedAt": "2026-07-10T09:00:00Z"
+  },
+  {
+    "id": "rmb-4",
+    "requester": {
+      "id": "user-1",
+      "name": "Igor Souza"
+    },
+    "budget": {
+      "id": "bgt-1",
+      "name": "Marketing"
+    },
+    "packageId": null,
+    "merchantCategory": "food",
+    "description": "Jantar de encerramento",
+    "amount": 250000,
+    "currency": "BRL",
+    "expenseDate": "2026-06-24",
+    "receipt": {
+      "status": "attached",
+      "url": "storage://receipts/rmb-4.jpg"
+    },
+    "status": "rejected",
+    "policyFlags": [
+      "over_max_amount"
+    ],
+    "estimatedPaymentDate": null,
+    "paidAt": null,
+    "payoutKey": {
+      "type": "cpf",
+      "value": "113.036.437-23"
+    },
+    "decidedBy": {
+      "id": "user-adm-1",
+      "name": "Ana Lima"
+    },
+    "decidedAt": "2026-06-26T11:00:00Z",
+    "decisionNote": "Acima do teto por transação da política. Divida a nota ou fale com o financeiro.",
+    "createdAt": "2026-06-25T19:00:00Z",
+    "updatedAt": "2026-06-26T11:00:00Z"
+  }
+]

@@ -1,0 +1,43 @@
+[
+  {
+    "id": "bgt-1",
+    "name": "Marketing",
+    "description": "Mídia paga e eventos do trimestre",
+    "ownerId": "user-adm-1",
+    "period": {
+      "type": "monthly",
+      "startDate": "2026-07-01",
+      "endDate": null,
+      "autoRenew": true
+    },
+    "totalLimit": 5000000,
+    "currency": "BRL",
+    "status": "active",
+    "periodSummaries": [
+      {
+        "period": "2026-06",
+        "consumed": 4200000
+      }
+    ],
+    "createdAt": "2026-06-20T12:00:00Z",
+    "updatedAt": "2026-07-01T00:00:00Z"
+  },
+  {
+    "id": "bgt-2",
+    "name": "Eventos",
+    "description": "Feira de construção — estande e viagem",
+    "ownerId": "user-adm-1",
+    "period": {
+      "type": "oneTime",
+      "startDate": "2026-06-20",
+      "endDate": "2026-08-15",
+      "autoRenew": false
+    },
+    "totalLimit": 1500000,
+    "currency": "BRL",
+    "status": "active",
+    "periodSummaries": [],
+    "createdAt": "2026-06-20T12:00:00Z",
+    "updatedAt": "2026-06-20T12:00:00Z"
+  }
+]
