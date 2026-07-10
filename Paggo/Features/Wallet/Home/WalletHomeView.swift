@@ -78,6 +78,9 @@ struct WalletHomeView: View {
                         reimbursementRow
                             .padding(.horizontal, Spacing.lg)
                             .transition(.opacity)
+                        assistantRow
+                            .padding(.horizontal, Spacing.lg)
+                            .transition(.opacity)
                         budgetsSection
                             .padding(.horizontal, Spacing.lg)
                             .transition(.opacity)
@@ -326,6 +329,33 @@ struct WalletHomeView: View {
         case 1: return "1 em andamento"
         default: return "\(count) em andamento"
         }
+    }
+
+    // MARK: Assistente
+
+    private var assistantRow: some View {
+        NavigationLink {
+            AssistantView()
+        } label: {
+            HStack(spacing: Spacing.md) {
+                TintedIcon(symbol: "sparkles", tint: Theme.accent)
+                VStack(alignment: .leading, spacing: 2) {
+                    Text("Assistente")
+                        .font(.brand(.subheadline, weight: .semibold))
+                        .foregroundStyle(Theme.textPrimary)
+                    Text("\u{201C}Quanto sobrou em Marketing?\u{201D}")
+                        .font(.brand(.caption))
+                        .foregroundStyle(Theme.textSecondary)
+                }
+                Spacer()
+                Image(systemName: "chevron.right")
+                    .font(.system(size: 12, weight: .semibold))
+                    .foregroundStyle(Theme.textTertiary)
+            }
+            .padding(Spacing.lg)
+            .cardSurface()
+        }
+        .buttonStyle(.plain)
     }
 
     // MARK: Meus orçamentos (faixa com barras 75/90; toque abre o detalhe)
