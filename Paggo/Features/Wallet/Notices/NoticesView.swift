@@ -1,11 +1,14 @@
 import SwiftUI
 
 /// Aba Avisos: pendências acionáveis + notificações — o funcionário resolve e fica em dia
-/// num lugar só. Pendências são derivadas dos domínios na hora (nunca cacheadas).
+/// num lugar só. Pendências são derivadas dos domínios na hora (nunca cacheadas); cada
+/// linha leva direto pra tela onde se resolve.
 struct NoticesView: View {
     @Environment(NoticeStore.self) private var notices
     @Environment(CardStore.self) private var cardStore
     @Environment(WalletStore.self) private var wallet
+    @Environment(BudgetStore.self) private var budgets
+    @Environment(ReimbursementStore.self) private var reimbursements
 
     var body: some View {
         NavigationStack {
@@ -13,7 +16,12 @@ struct NoticesView: View {
                 if !pendencies.isEmpty {
                     Section("Pendências") {
                         ForEach(pendencies) { item in
-                            PendencyRow(item: item)
+                            NavigationLink {
+                                pendencyDestination(item)
+                            } label: {
+                                PendencyRow(title: item.title, detail: item.detail,
+                                            symbol: item.symbol)
+                            }
                         }
                     }
                 }
@@ -24,11 +32,22 @@ struct NoticesView: View {
                             .foregroundStyle(Theme.textSecondary)
                     }
                     ForEach(notices.notifications) { notification in
-                        NotificationRow(notification: notification)
-                            .contentShape(Rectangle())
-                            .onTapGesture {
-                                Task { await notices.markRead(id: notification.id) }
+                        if hasDestination(notification) {
+                            NavigationLink {
+                                notificationDestination(notification)
+                                    .onAppear {
+                                        Task { await notices.markRead(id: notification.id) }
+                                    }
+                            } label: {
+                                NotificationRow(notification: notification)
                             }
+                        } else {
+                            NotificationRow(notification: notification)
+                                .contentShape(Rectangle())
+                                .onTapGesture {
+                                    Task { await notices.markRead(id: notification.id) }
+                                }
+                        }
                     }
                 }
             }
@@ -44,6 +63,8 @@ struct NoticesView: View {
             .task {
                 await notices.load()
                 await cardStore.load()
+                await budgets.load()
+                await reimbursements.load()
             }
             .refreshable {
                 await notices.load(force: true)
@@ -52,13 +73,28 @@ struct NoticesView: View {
         }
     }
 
-    /// Pendências derivadas: transações de cartão sem recibo + pendências do extrato da carteira.
+    // MARK: Pendências (derivadas)
+
+    private enum PendencyTarget: Hashable {
+        case cardTransaction(String)
+        case payment(WalletPayment)
+    }
+
+    private struct PendencyItem: Identifiable, Hashable {
+        let id: String
+        let title: String
+        let detail: String
+        let symbol: String
+        let target: PendencyTarget
+    }
+
     private var pendencies: [PendencyItem] {
         var items: [PendencyItem] = cardStore.missingReceipts.map {
             PendencyItem(id: "ctx-receipt-\($0.id)",
                          title: "Anexar recibo — \($0.merchant.name)",
                          detail: "\($0.effectiveAmount.currencyFromCents()) · \(DateText.short($0.authorizedAt))",
-                         symbol: "doc.text.viewfinder")
+                         symbol: "doc.text.viewfinder",
+                         target: .cardTransaction($0.id))
         }
         let allPayments = wallet.paymentsByWallet.values.flatMap { $0 }
         items += allPayments.filter(\.hasPendencies).map {
@@ -66,37 +102,66 @@ struct NoticesView: View {
                          title: $0.hasAttachments ? "Completar alocação — \($0.receiverName)"
                                                   : "Anexar comprovante — \($0.receiverName)",
                          detail: "\($0.amount.currencyFromCents()) · \(DateText.short($0.createdAt))",
-                         symbol: "chart.pie")
+                         symbol: "chart.pie",
+                         target: .payment($0))
         }
         return items
     }
-}
 
-private struct PendencyItem: Identifiable {
-    let id: String
-    let title: String
-    let detail: String
-    let symbol: String
+    @ViewBuilder private func pendencyDestination(_ item: PendencyItem) -> some View {
+        switch item.target {
+        case .cardTransaction(let id): CardTransactionDetailView(transactionId: id)
+        case .payment(let payment): WalletTransactionDetailView(payment: payment)
+        }
+    }
+
+    // MARK: Deep-link das notificações (payload → tela do assunto)
+
+    private func hasDestination(_ notification: AppNotification) -> Bool {
+        guard let payload = notification.payload else { return false }
+        if payload.transactionId != nil { return true }
+        if payload.reimbursementId != nil { return true }
+        if membershipId(for: payload) != nil { return true }
+        return false
+    }
+
+    private func membershipId(for payload: AppNotification.Payload) -> String? {
+        if let id = payload.membershipId { return id }
+        if let budgetId = payload.budgetId {
+            return budgets.memberships.first { $0.budgetId == budgetId }?.id
+        }
+        return nil
+    }
+
+    @ViewBuilder private func notificationDestination(_ notification: AppNotification) -> some View {
+        if let payload = notification.payload {
+            if let txId = payload.transactionId {
+                CardTransactionDetailView(transactionId: txId)
+            } else if let reimbursementId = payload.reimbursementId {
+                ReimbursementDetailView(reimbursementId: reimbursementId)
+            } else if let membershipId = membershipId(for: payload) {
+                BudgetDetailView(membershipId: membershipId)
+            }
+        }
+    }
 }
 
 private struct PendencyRow: View {
-    let item: PendencyItem
+    let title: String
+    let detail: String
+    let symbol: String
 
     var body: some View {
         HStack(spacing: Spacing.md) {
-            TintedIcon(symbol: item.symbol, tint: Theme.warning)
+            TintedIcon(symbol: symbol, tint: Theme.warning)
             VStack(alignment: .leading, spacing: 2) {
-                Text(item.title)
+                Text(title)
                     .font(.brand(.subheadline, weight: .semibold))
                     .foregroundStyle(Theme.textPrimary)
-                Text(item.detail)
+                Text(detail)
                     .font(.brand(.caption))
                     .foregroundStyle(Theme.textSecondary)
             }
-            Spacer()
-            Image(systemName: "chevron.right")
-                .font(.system(size: 12, weight: .semibold))
-                .foregroundStyle(Theme.textTertiary)
         }
     }
 }
