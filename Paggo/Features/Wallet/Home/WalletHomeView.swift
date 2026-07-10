@@ -6,6 +6,7 @@ import SwiftUI
 /// nunca saem da hierarquia — a transição é só movimento, por isso é contínua.
 struct WalletHomeView: View {
     @Environment(WalletStore.self) private var wallet
+    @Environment(BudgetStore.self) private var budgets
     @Environment(AuthStore.self) private var auth
     @Environment(\.accessibilityReduceMotion) private var reduceMotion
 
@@ -40,6 +41,7 @@ struct WalletHomeView: View {
                 }
                 .task {
                     await wallet.load()
+                    await budgets.load()
                     // Debug: PAGGO_WALLET_PAY=pixKey|pixCopyPaste|pixQR|boleto abre direto o fluxo.
                     if payLaunch == nil,
                        let raw = ProcessInfo.processInfo.environment["PAGGO_WALLET_PAY"],
@@ -66,6 +68,9 @@ struct WalletHomeView: View {
                     }
                     if !isCardsExpanded {
                         actionGrid
+                            .padding(.horizontal, Spacing.lg)
+                            .transition(.opacity)
+                        budgetsSection
                             .padding(.horizontal, Spacing.lg)
                             .transition(.opacity)
                     }
@@ -243,6 +248,34 @@ struct WalletHomeView: View {
             .background(Theme.surfaceHigh, in: RoundedRectangle(cornerRadius: 18, style: .continuous))
         }
         .buttonStyle(.plain)
+    }
+
+    // MARK: Meus orçamentos (faixa com barras 75/90; toque abre o detalhe)
+
+    @ViewBuilder private var budgetsSection: some View {
+        if !budgets.overviews.isEmpty {
+            VStack(alignment: .leading, spacing: Spacing.sm) {
+                SectionHeader("Meus orçamentos") {
+                    NavigationLink {
+                        BudgetsListView()
+                    } label: {
+                        Text("Ver todos")
+                            .font(.brand(.subheadline, weight: .medium))
+                            .foregroundStyle(Theme.accent)
+                    }
+                }
+                VStack(spacing: Spacing.md) {
+                    ForEach(budgets.overviews.prefix(2), id: \.membership.id) { pair in
+                        NavigationLink {
+                            BudgetDetailView(membershipId: pair.membership.id)
+                        } label: {
+                            BudgetOverviewCard(budget: pair.budget, membership: pair.membership)
+                        }
+                        .buttonStyle(.plain)
+                    }
+                }
+            }
+        }
     }
 
     private var emptyWalletsCard: some View {
