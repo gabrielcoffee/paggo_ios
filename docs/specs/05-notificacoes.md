@@ -2,7 +2,7 @@
 
 Central de notificações in-app alimentada por eventos server-side (thresholds de limite,
 expirações, decisões, pendências) via Supabase realtime; push APNs como camada do passe C.
-Status: **Passe A (contratos + regras) aprovado 2026-07-08** · Passe B (UX) pendente ·
+Status: **Passe A (contratos + regras) aprovado 2026-07-08** · Passe B (UX) implementado 2026-07-10 ·
 Passe C (arquitetura) pendente.
 
 ## Contratos
@@ -64,3 +64,10 @@ Por usuário, toggle por tipo (integra com `NotificationPrefsStore` existente):
 6. **Threshold usa limite efetivo** — 75/90% calculado sobre o limite da doc 01 regra 2
    (considera `temporaryLimit`); aumento aprovado pode "descruzar" o threshold — não gera
    nova notificação até cruzar de novo em outro período.
+
+## UX (passe B) — implementado 2026-07-10
+
+- Aba **Avisos** com duas seções: **Pendências** (derivadas na hora dos domínios — recibo
+  faltando, comprovante/alocação — cada linha abre a tela onde se resolve) e **Avisos**
+  (readAt, "marcar todas", deep-link pelo payload: orçamento, transação, reembolso).
+- Badge da tab = não-lidas; some quando o usuário zera.

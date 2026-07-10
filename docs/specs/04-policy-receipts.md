@@ -3,7 +3,7 @@
 Regras de gasto (categorias bloqueadas, tetos, exigência de recibo, auto-aprovação) aplicadas
 nos instrumentos (cartão, carteira, reembolso) + recibos com OCR **real** (Vision, on-device)
 casados automaticamente com transações. Status: **Passe A (contratos + regras) aprovado
-2026-07-08** · Passe B (UX) pendente · Passe C (arquitetura) pendente.
+2026-07-08** · Passe B (UX) implementado 2026-07-10 · Passe C (arquitetura) pendente.
 
 ## Contratos
 
@@ -92,3 +92,12 @@ Escopo global ou por orçamento. Campo `null` num policy de budget **herda do gl
    submissão (doc 03) — não passa pelo matching.
 7. **Edição de policy** — só admin; muda comportamento **prospectivamente** (transações e
    decisões passadas não reprocessam).
+
+## UX (passe B) — implementado 2026-07-10
+
+- Política legível em dois lugares: seção "O que a política exige" no detalhe do orçamento
+  e avisos inline no formulário de reembolso — o funcionário descobre a regra antes do
+  decline, não depois.
+- Recibos: captura a partir da compra (detalhe da transação) → OCR on-device com confiança
+  por campo exibida → casou sozinho quando há exatamente 1 candidata; senão lista de
+  sugestões pro casamento manual. Casar resolve a pendência no extrato e nos Avisos.

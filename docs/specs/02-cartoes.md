@@ -3,7 +3,7 @@
 Cartão virtual por membership de orçamento, lastreado numa carteira (pré-pago): admin emite,
 funcionário usa/congela/revela, transações chegam por feed server-side (auth → settle) e
 debitam carteira + orçamento. Status: **Passe A (contratos + regras) aprovado 2026-07-08,
-rev. 2026-07-10** · Passe B (UX) pendente · Passe C (arquitetura) pendente.
+rev. 2026-07-10** · Passe B (UX) implementado 2026-07-10 · Passe C (arquitetura) pendente.
 
 ## Contratos
 
@@ -97,3 +97,14 @@ Cada chamada gera um registro de auditoria:
 9. **Feed** — transações inseridas server-side (seed + scheduled function), chegam via
    realtime; cenários determinísticos cobrem auth→settle, decline por cada motivo, reversal
    e settle com ajuste de valor.
+
+## UX (passe B) — implementado 2026-07-10
+
+- Entrada pelo hub: linha com `•••• last4` e estado (congelado/bloqueado ficam à vista).
+- Tela do cartão: arte muda com o estado (congelado = cinza + snowflake); **revelar dados**
+  exige biometria na hora, o PAN/CVV somem sozinhos em 45 s, cópia por toque longo usa
+  clipboard local com validade de 1 min e a área é `privacySensitive` (não aparece no app
+  switcher). O valor revelado nunca é persistido nem logado.
+- Vínculos explícitos: orçamento (navega pro detalhe) e carteira lastro.
+- Feed com motivo de recusa em pt-BR (7 motivos, doc 02 regra 5) e ajuste de settle
+  explicitado ("autorizado X → liquidado Y"); categoria corrigível por sheet (regra 6).

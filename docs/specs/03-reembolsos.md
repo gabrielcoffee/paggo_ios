@@ -2,7 +2,7 @@
 
 Funcionário gastou do próprio bolso → submete despesa com recibo → admin aprova → vira
 package `REIMBURSEMENT` na esteira de payout → Pix na liquidação. Status: **Passe A
-(contratos + regras) aprovado 2026-07-08, rev. 2026-07-10** · Passe B (UX) pendente ·
+(contratos + regras) aprovado 2026-07-08, rev. 2026-07-10** · Passe B (UX) implementado 2026-07-10 ·
 Passe C (arquitetura) pendente.
 
 ## Contratos
@@ -60,3 +60,13 @@ de cadastro:
 4. **Aprovador** — budget marcado → `ownerId` do budget; sem budget → qualquer admin.
 5. **payoutKey** — snapshot do perfil no momento da submissão (mudança posterior de chave
    não afeta pedidos em andamento).
+
+## UX (passe B) — implementado 2026-07-10
+
+- Entrada pelo hub: linha "Reembolsos" com contagem em andamento.
+- Formulário único: a **foto do recibo preenche valor e data via OCR** (o funcionário só
+  confere); a política aparece antes de enviar — "aprova na hora" quando elegível,
+  alertas de teto/categoria quando sinalizado (violação não bloqueia, doc 04).
+- Sucesso com expectativa: valor + previsão D+2 + explicação de que o financeiro libera
+  (portões distintos). Detalhe com linha do tempo (enviado → aprovado → pago) e motivo de
+  recusa; cancelamento só enquanto em análise.

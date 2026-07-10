@@ -3,7 +3,7 @@
 Assistente conversacional que responde perguntas ("quanto sobrou no orçamento de Marketing?")
 e executa ações ("congela meu cartão") pelos **mesmos stores/RPCs da UI** — sem caminho de
 escrita paralelo. LLM = Claude API atrás de Supabase Edge Function (chave nunca no app).
-Status: **Passe A (contratos + regras) aprovado 2026-07-08** · Passe B (UX) pendente ·
+Status: **Passe A (contratos + regras) aprovado 2026-07-08** · Passe B (UX) implementado 2026-07-10 ·
 Passe C (arquitetura) pendente.
 
 ## Contratos
@@ -74,3 +74,12 @@ tendo recibo/validações do fluxo normal).
    completo; sessões antigas não.
 7. **Auditoria** — `actions` persistidas na mensagem são o log: quem confirmou, quando,
    resultado. Nada de ação sem rastro na conversa.
+
+## UX (passe B) — implementado 2026-07-10
+
+- Assistente entra pelo hub; bolhas de conversa + **action cards** com o ciclo
+  proposed → confirmed → executed/failed/dismissed visível no card (auditoria na conversa).
+- Execução pelas mesmas chamadas da UI (congelar/descongelar cartão; rascunho de reembolso
+  abre o formulário do doc 03). Chips de sugestão dão o primeiro passo.
+- Motor atual é roteirizado atrás do `ChatRepository` — a troca por Claude API via Edge
+  Function (fase live) não altera nenhuma tela.

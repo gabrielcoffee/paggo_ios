@@ -3,7 +3,7 @@
 Orçamentos estilo Ramp: admin cria orçamento por time/projeto/período; funcionários são
 membros com limite individual; gasto da carteira consome o orçamento; funcionário pede
 aumento, admin aprova. Status: **Passe A (contratos + regras) aprovado 2026-07-08, rev. 2026-07-10** ·
-Passe B (UX) pendente · Passe C (arquitetura) pendente.
+Passe B (UX) implementado 2026-07-10 · Passe C (arquitetura) pendente.
 
 ## Contratos
 
@@ -118,3 +118,15 @@ Payload `POST /wallets/{id}/intents` e intent criado ganham campos **opcionais**
 9. **Categoria** — `merchantCategory` é escolhida pelo funcionário na revisão do pagamento
    (opcional; default `other`). Pix/boleto não trazem MCC — não há fonte automática neste spec.
 10. **Orçamento é opcional** — nenhum pagamento exige orçamento neste spec.
+
+## UX (passe B) — implementado 2026-07-10
+
+- Hub do Início traz a faixa **Meus orçamentos**: card por membership com restante grande e
+  barra de consumo nas cores dos marcos 75/90% (as mesmas dos avisos — barra e notificação
+  nunca discordam).
+- Detalhe do orçamento: restante do limite efetivo em destaque; aumento temporário ativo
+  aparece com a data e o valor de retorno; gastos do período (cartão + reembolsos) listados;
+  seção **"O que a política exige"** (doc 04) legível antes de qualquer bloqueio.
+- **Solicitar aumento**: sheet com valor absoluto, tipo temporário (com validade) ou
+  permanente e motivo; o CTA some enquanto existe pedido pendente (regra 8 refletida na UI)
+  e o card "aguardando decisão" mostra o de→para.

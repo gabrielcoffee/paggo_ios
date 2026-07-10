@@ -93,7 +93,8 @@ Launch directly into one feature, bypassing login (used for UI verification):
 SIMCTL_CHILD_PAGGO_SCREEN=payments xcrun simctl launch booted ai.paggo.mobile
 ```
 
-Supported: `dashboard`, `payments`, `approvals`, `detail`. For `detail`, pick the initial tab
+Supported: `dashboard`, `payments`, `approvals`, `detail`, `wallet` (employee side; pick the
+tab with `PAGGO_WALLET_TAB=inicio|extrato|avisos|perfil`). For `detail`, pick the initial tab
 with `PAGGO_DETAIL_TAB` (`details` · `documents` · `budget` · `conciliation` · `history`):
 
 ```bash
