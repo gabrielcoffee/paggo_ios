@@ -8,6 +8,7 @@ struct CardTransactionDetailView: View {
     @Environment(CardStore.self) private var cardStore
     @Environment(BudgetStore.self) private var budgets
     @State private var showsCategorySheet = false
+    @State private var showsReceiptCapture = false
 
     private var transaction: CardTransaction? {
         cardStore.transactions.first { $0.id == transactionId }
@@ -32,6 +33,9 @@ struct CardTransactionDetailView: View {
             if let tx = transaction {
                 CardCategorySheet(transaction: tx)
             }
+        }
+        .sheet(isPresented: $showsReceiptCapture) {
+            ReceiptCaptureSheet()
         }
     }
 
@@ -92,23 +96,33 @@ struct CardTransactionDetailView: View {
     }
 
     private func receiptCard(_ tx: CardTransaction) -> some View {
-        HStack(spacing: Spacing.md) {
-            TintedIcon(symbol: "doc.text",
-                       tint: tx.receiptStatus == .attached ? Theme.positive : Theme.warning)
-            VStack(alignment: .leading, spacing: 2) {
-                Text(tx.receiptStatus == .attached ? "Recibo anexado" : "Recibo pendente")
-                    .font(.brand(.subheadline, weight: .semibold))
-                    .foregroundStyle(Theme.textPrimary)
-                Text(tx.receiptStatus == .attached
-                     ? "Casado automaticamente pela leitura do recibo."
-                     : "Fotografe o recibo desta compra — ele casa sozinho pelo valor e data.")
-                    .font(.brand(.caption))
-                    .foregroundStyle(Theme.textSecondary)
+        Button {
+            if tx.receiptStatus == .missing { showsReceiptCapture = true }
+        } label: {
+            HStack(spacing: Spacing.md) {
+                TintedIcon(symbol: "doc.text",
+                           tint: tx.receiptStatus == .attached ? Theme.positive : Theme.warning)
+                VStack(alignment: .leading, spacing: 2) {
+                    Text(tx.receiptStatus == .attached ? "Recibo anexado" : "Recibo pendente")
+                        .font(.brand(.subheadline, weight: .semibold))
+                        .foregroundStyle(Theme.textPrimary)
+                    Text(tx.receiptStatus == .attached
+                         ? "Casado automaticamente pela leitura do recibo."
+                         : "Fotografe o recibo desta compra — ele casa sozinho pelo valor e data.")
+                        .font(.brand(.caption))
+                        .foregroundStyle(Theme.textSecondary)
+                }
+                Spacer()
+                if tx.receiptStatus == .missing {
+                    Image(systemName: "plus.circle.fill")
+                        .font(.system(size: 20))
+                        .foregroundStyle(Theme.accent)
+                }
             }
-            Spacer()
+            .padding(Spacing.lg)
+            .cardSurface()
         }
-        .padding(Spacing.lg)
-        .cardSurface()
+        .buttonStyle(.plain)
     }
 
     private func infoRow(symbol: String, title: String, value: String, chevron: Bool) -> some View {

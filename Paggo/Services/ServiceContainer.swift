@@ -21,6 +21,7 @@ final class ServiceContainer: Sendable {
     let cardRepository: CardRepository
     let reimbursementRepository: ReimbursementRepository
     let policyRepository: PolicyRepository
+    let receiptRepository: ReceiptRepository
     let spendNotificationRepository: SpendNotificationRepository
     let chatRepository: ChatRepository
 
@@ -37,6 +38,7 @@ final class ServiceContainer: Sendable {
         self.cardRepository = MockCardRepository()
         self.reimbursementRepository = MockReimbursementRepository()
         self.policyRepository = MockPolicyRepository()
+        self.receiptRepository = MockReceiptRepository()
         self.spendNotificationRepository = MockSpendNotificationRepository()
         self.chatRepository = MockChatRepository()
     }

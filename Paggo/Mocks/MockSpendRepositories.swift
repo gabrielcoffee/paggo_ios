@@ -226,6 +226,70 @@ actor SpendMockServer {
         return resolvePolicy(budgetId: budgetId)
     }
 
+
+    // MARK: Recibos (doc 04) — matching server-side
+
+    /// Candidatas ao casamento: transações do usuário com valor ±5%, data ±3 dias, sem recibo.
+    private func matchCandidates(for ocr: SmartReceipt.OCR) -> [CardTransaction] {
+        cardTransactions.filter { tx in
+            guard tx.countsAsSpend, tx.receiptStatus == .missing else { return false }
+            if let amount = ocr.amount {
+                let tolerance = Double(amount) * 0.05
+                guard abs(Double(tx.effectiveAmount - amount)) <= tolerance else { return false }
+            }
+            if let dateText = ocr.date, let ocrDate = DateText.parse(dateText),
+               let txDate = DateText.parse(tx.authorizedAt) {
+                let days = abs(ocrDate.timeIntervalSince(txDate)) / 86_400
+                guard days <= 3 else { return false }
+            }
+            return true
+        }
+    }
+
+    func allReceipts() async throws -> [SmartReceipt] {
+        await simulateLatency(); try seedIfNeeded()
+        return receipts.sorted { $0.createdAt > $1.createdAt }
+    }
+
+    func submitReceipt(url: String, ocr: SmartReceipt.OCR) async throws -> (SmartReceipt, [CardTransaction]) {
+        await simulateLatency(); try seedIfNeeded()
+        let candidates = matchCandidates(for: ocr)
+        var receipt = SmartReceipt(
+            id: "rcp-\(UUID().uuidString.prefix(8))",
+            uploadedBy: PersonRef(id: currentUser.id, name: currentUser.name),
+            url: url, ocr: ocr, match: nil, status: .unmatched,
+            createdAt: now(), updatedAt: now()
+        )
+        // Exatamente 1 candidata → casa automático (doc 04 regra 6).
+        if candidates.count == 1, let target = candidates.first {
+            receipt.match = SmartReceipt.Match(type: "cardTransaction", id: target.id, method: "auto")
+            receipt.status = .matched
+            markReceiptAttached(transactionId: target.id)
+            receipts.insert(receipt, at: 0)
+            return (receipt, [])
+        }
+        receipts.insert(receipt, at: 0)
+        return (receipt, candidates)
+    }
+
+    func matchReceipt(receiptId: String, transactionId: String) async throws -> SmartReceipt {
+        await simulateLatency(); try seedIfNeeded()
+        guard let idx = receipts.firstIndex(where: { $0.id == receiptId }) else {
+            throw SpendError.notFound
+        }
+        receipts[idx].match = SmartReceipt.Match(type: "cardTransaction", id: transactionId, method: "manual")
+        receipts[idx].status = .matched
+        receipts[idx].updatedAt = now()
+        markReceiptAttached(transactionId: transactionId)
+        return receipts[idx]
+    }
+
+    private func markReceiptAttached(transactionId: String) {
+        guard let idx = cardTransactions.firstIndex(where: { $0.id == transactionId }) else { return }
+        cardTransactions[idx].receiptStatus = .attached
+        cardTransactions[idx].updatedAt = now()
+    }
+
     // MARK: Notificações (doc 05)
 
     func myNotifications() async throws -> [AppNotification] {
@@ -375,6 +439,20 @@ struct MockReimbursementRepository: ReimbursementRepository {
 struct MockPolicyRepository: PolicyRepository {
     func resolvedPolicy(budgetId: String?) async throws -> ResolvedPolicy {
         try await SpendMockServer.shared.resolvedPolicy(budgetId: budgetId)
+    }
+    func invalidate() async {}
+}
+
+
+struct MockReceiptRepository: ReceiptRepository {
+    func receipts() async throws -> [SmartReceipt] { try await SpendMockServer.shared.allReceipts() }
+    func submit(url: String, ocr: SmartReceipt.OCR) async throws -> (receipt: SmartReceipt,
+                                                                     suggestions: [CardTransaction]) {
+        let (receipt, suggestions) = try await SpendMockServer.shared.submitReceipt(url: url, ocr: ocr)
+        return (receipt, suggestions)
+    }
+    func match(receiptId: String, transactionId: String) async throws -> SmartReceipt {
+        try await SpendMockServer.shared.matchReceipt(receiptId: receiptId, transactionId: transactionId)
     }
     func invalidate() async {}
 }

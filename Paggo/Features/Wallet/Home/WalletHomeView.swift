@@ -43,6 +43,7 @@ struct WalletHomeView: View {
                     await wallet.load()
                     await budgets.load()
                     await cardStore.load()
+                    await reimbursements.load()
                     // Debug: PAGGO_WALLET_PAY=pixKey|pixCopyPaste|pixQR|boleto abre direto o fluxo.
                     if payLaunch == nil,
                        let raw = ProcessInfo.processInfo.environment["PAGGO_WALLET_PAY"],
@@ -72,6 +73,9 @@ struct WalletHomeView: View {
                             .padding(.horizontal, Spacing.lg)
                             .transition(.opacity)
                         cardRow
+                            .padding(.horizontal, Spacing.lg)
+                            .transition(.opacity)
+                        reimbursementRow
                             .padding(.horizontal, Spacing.lg)
                             .transition(.opacity)
                         budgetsSection
@@ -283,6 +287,44 @@ struct WalletHomeView: View {
                 .cardSurface()
             }
             .buttonStyle(.plain)
+        }
+    }
+
+    // MARK: Reembolsos (linha cheia — andamento à vista)
+
+    @Environment(ReimbursementStore.self) private var reimbursements
+
+    private var reimbursementRow: some View {
+        NavigationLink {
+            ReimbursementsListView()
+        } label: {
+            HStack(spacing: Spacing.md) {
+                TintedIcon(symbol: "arrow.uturn.backward.circle.fill", tint: Theme.info)
+                VStack(alignment: .leading, spacing: 2) {
+                    Text("Reembolsos")
+                        .font(.brand(.subheadline, weight: .semibold))
+                        .foregroundStyle(Theme.textPrimary)
+                    Text(reimbursementSubtitle)
+                        .font(.brand(.caption))
+                        .foregroundStyle(Theme.textSecondary)
+                }
+                Spacer()
+                Image(systemName: "chevron.right")
+                    .font(.system(size: 12, weight: .semibold))
+                    .foregroundStyle(Theme.textTertiary)
+            }
+            .padding(Spacing.lg)
+            .cardSurface()
+        }
+        .buttonStyle(.plain)
+    }
+
+    private var reimbursementSubtitle: String {
+        let count = reimbursements.inProgress.count
+        switch count {
+        case 0: return "Gastou do bolso? Peça aqui"
+        case 1: return "1 em andamento"
+        default: return "\(count) em andamento"
         }
     }
 

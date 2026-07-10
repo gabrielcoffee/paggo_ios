@@ -64,6 +64,18 @@ protocol PolicyRepository: Sendable {
     func invalidate() async
 }
 
+/// Recibos inteligentes (doc 04): OCR roda on-device; o CASAMENTO roda no servidor
+/// (valor ±5%, data ±3 dias, sem recibo; exatamente 1 candidata casa sozinha).
+protocol ReceiptRepository: Sendable {
+    func receipts() async throws -> [SmartReceipt]
+    /// Envia o recibo com a leitura OCR; devolve o recibo (matched/unmatched) e, quando
+    /// não casou sozinho, as transações candidatas pro casamento manual.
+    func submit(url: String, ocr: SmartReceipt.OCR) async throws -> (receipt: SmartReceipt,
+                                                                     suggestions: [CardTransaction])
+    func match(receiptId: String, transactionId: String) async throws -> SmartReceipt
+    func invalidate() async
+}
+
 /// Notificações in-app (doc 05).
 protocol SpendNotificationRepository: Sendable {
     func notifications() async throws -> [AppNotification]
