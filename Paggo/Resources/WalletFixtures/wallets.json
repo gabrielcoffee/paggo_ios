@@ -1,0 +1,29 @@
+[
+  {
+    "id": "wal-1",
+    "name": "Cartão Obra Centro",
+    "active": true,
+    "limit": 184750,
+    "maximumLimit": 500000,
+    "organization": { "legalName": "Construtora Alfa S.A." },
+    "walletUsers": [{ "userId": "user-1", "pin": "1234" }]
+  },
+  {
+    "id": "wal-2",
+    "name": "Cartão Suprimentos",
+    "active": true,
+    "limit": 42000,
+    "maximumLimit": 200000,
+    "organization": { "legalName": "Construtora Alfa S.A." },
+    "walletUsers": [{ "userId": "user-1", "pin": null }]
+  },
+  {
+    "id": "wal-3",
+    "name": "Cartão Eventos",
+    "active": false,
+    "limit": 0,
+    "maximumLimit": 100000,
+    "organization": { "legalName": "Incorporadora Beta LTDA" },
+    "walletUsers": []
+  }
+]

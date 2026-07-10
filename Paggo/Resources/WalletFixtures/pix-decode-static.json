@@ -1,0 +1,20 @@
+{
+  "key": {
+    "accountNumber": "10032708",
+    "accountType": "checking",
+    "bankCode": "90400888",
+    "branchCode": "1745",
+    "endToEndId": "E13935893202406242121U6gLky9lIUd",
+    "key": "11303643723",
+    "receiverLegalName": "THIAGO MORALES DOS SANTOS RIOS",
+    "receiverTaxId": "11303643723",
+    "type": "CPF"
+  },
+  "qrCode": {
+    "emv": "00020126330014br.gov.bcb.pix0111113036437235204000053039865802BR5925THIAGO MORALES DOS SANTOS6014RIO DE JANEIRO62580520SAN2024061913585680950300017br.gov.bcb.brcode01051.0.063041471",
+    "transactionAmount": 0,
+    "type": "static",
+    "merchantCity": "RIO DE JANEIRO",
+    "transactionIdentification": "SAN20240623234957077"
+  }
+}

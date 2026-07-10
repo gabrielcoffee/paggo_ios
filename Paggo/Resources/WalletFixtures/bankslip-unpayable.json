@@ -1,0 +1,15 @@
+{
+  "id": "5e19a3c7-88d2-47f1-9c44-6b1f3e8a2d90",
+  "payable": false,
+  "assignor": "ENERGISA DISTRIBUIDORA",
+  "dueDate": "2026-05-15T20:59:59.999Z",
+  "digitable": "99991757283496055252850434570003700000000000000",
+  "value": 0,
+  "fineAmount": 0,
+  "interestAmount": 0,
+  "errorCode": "030",
+  "status": 1,
+  "initeHour": "07:00",
+  "endHour": "23:00",
+  "registerData": null
+}

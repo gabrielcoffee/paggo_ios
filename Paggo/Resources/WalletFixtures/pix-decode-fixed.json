@@ -1,0 +1,21 @@
+{
+  "key": {
+    "accountNumber": "44557201",
+    "accountType": "checking",
+    "bankCode": "60701190",
+    "branchCode": "0912",
+    "endToEndId": "E60701190202607071430FIXOqrDem0",
+    "key": "48.276.309/0001-55",
+    "receiverLegalName": "MATERIAIS DE CONSTRUCAO PRIMAVERA LTDA",
+    "receiverTaxId": "48276309000155",
+    "type": "CNPJ"
+  },
+  "qrCode": {
+    "emv": "00020126580014br.gov.bcb.pix0136a1b2c3d4-e5f6-4a5b-8c7d-9e0f1a2b3c4d5204000053039865406152.905802BR5925MATERIAIS PRIMAVERA LTDA6009SAO PAULO62290525PAGGOFIXO20260707DEMO0016304AB12",
+    "transactionAmount": 15290,
+    "type": "dynamic",
+    "merchantCity": "SAO PAULO",
+    "transactionIdentification": "PAGGOFIXO20260707DEMO001",
+    "dueDate": "2026-07-14T02:59:59.999Z"
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "name": "Paggo Carteiras Digitais",
+  "short_name": "Paggo Carteiras Digitais",
+  "display": "fullscreen",
+  "orientation": "any",
+  "theme_color": "#FFFFFF",
+  "background_color": "#FFFFFF",
+  "start_url": "/",
+  "icons": [
+    {
+      "src": "/images/android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "Paggo Carteiras Digitais"
+    },
+    {
+      "src": "/images/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

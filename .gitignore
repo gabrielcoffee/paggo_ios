@@ -1,0 +1,26 @@
+# Xcode / xcodegen
+*.xcodeproj/
+*.xcworkspace/
+xcuserdata/
+DerivedData/
+build/
+.build/
+*.xcuserstate
+
+# macOS
+.DS_Store
+
+# Swift Package Manager
+.swiftpm/
+
+# Misc
+*.moved-aside
+*.hmap
+*.ipa
+
+# Secrets (API keys) + Firebase config — never commit
+**/Secrets.plist
+**/GoogleService-Info.plist
+
+# Claude Code local settings
+.claude/settings.local.json

@@ -1,0 +1,10 @@
+{
+  "amount": 77777,
+  "paymentDate": "2026-07-06T15:20:00.000Z",
+  "paymentMethod": "PIX",
+  "receiverName": "THIAGO MORALES DOS SANTOS RIOS",
+  "payerName": "Construtora Alfa S.A.",
+  "status": "WAITING_PAYMENT",
+  "requestName": "Pagamento via Carteira Digital",
+  "requestDate": "2026-07-06T15:18:00.000Z"
+}
