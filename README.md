@@ -8,17 +8,14 @@ networking layer.
 
 ## Previews
 
+The employee wallet, from the latest build:
+
 <p>
-  <img src="docs/screenshots/login.png" width="24%" alt="Login" />
-  <img src="docs/screenshots/dashboard.png" width="24%" alt="Dashboard" />
-  <img src="docs/screenshots/payments.png" width="24%" alt="Payments" />
-  <img src="docs/screenshots/detail.png" width="24%" alt="Payment detail" />
-</p>
-<p>
-  <img src="docs/screenshots/approvals.png" width="24%" alt="Approvals" />
-  <img src="docs/screenshots/wallet-home.png" width="24%" alt="Wallet home" />
-  <img src="docs/screenshots/wallet-extrato.png" width="24%" alt="Unified statement" />
-  <img src="docs/screenshots/dashboard-light.png" width="24%" alt="Dashboard, light theme" />
+  <img src="docs/screenshots/wallet-home.png" width="19%" alt="Wallet home" />
+  <img src="docs/screenshots/wallets.png" width="19%" alt="Wallet switcher with recent spends" />
+  <img src="docs/screenshots/pendencias.png" width="19%" alt="Pending receipts" />
+  <img src="docs/screenshots/solicitacoes.png" width="19%" alt="Requests" />
+  <img src="docs/screenshots/extrato.png" width="19%" alt="Unified statement" />
 </p>
 
 ## What I built
